@@ -1,5 +1,6 @@
 ﻿Console.WriteLine("Добро пожаловать в управление банковским счетом!");
 BankAccount account = new BankAccount(0, "none");
+List<int> transactions = new List<int>();
 Menu_Choice();
 
 void Menu_Choice()
@@ -7,8 +8,6 @@ void Menu_Choice()
     var choice = 0; 
     while(choice != 6)
 {
-    Console.WriteLine ($"имя счёта: {account.Name}");
-    Console.WriteLine($"баланс счёта:  {account.Balance}");
     Console.WriteLine("\n Введите номер выбранного действия:");
     Console.WriteLine("1. Создать новый счет");
     Console.WriteLine("2. Пополнить счет");
@@ -26,6 +25,15 @@ void Menu_Choice()
             break;
         case 2:
             Replenish_Account();
+            break;
+        case 3:
+            Withdraw_account();
+            break;
+        case 4:
+            check_account();
+            break;
+        case 5:
+            transactions_account();
             break;
         case 6:
             Environment.Exit(0);
@@ -49,9 +57,30 @@ void Replenish_Account()
     Console.WriteLine("Введите сумму пополнения счёта: ");
     int replenish_summ = Convert.ToInt32(Console.ReadLine());
     account.Balance += replenish_summ;
+    transactions.Add(replenish_summ);
 }
 
+void Withdraw_account()
+{
+    Console.WriteLine("Введите сумму которую желаете снять счёта: ");
+    int withdraw_summ = Convert.ToInt32(Console.ReadLine());
+    account.Balance -= withdraw_summ;
+    transactions.Add(-withdraw_summ);
+}
 
+void check_account()
+{
+    Console.WriteLine ($"имя счёта: {account.Name}");
+    Console.WriteLine($"баланс счёта:  {account.Balance}");
+}
+
+void transactions_account()
+{
+    foreach (var item in transactions)
+    {
+        Console.WriteLine(item);
+    }
+}
 
 
 
